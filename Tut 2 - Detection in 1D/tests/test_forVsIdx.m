@@ -1,41 +1,37 @@
 %% Main function to generate tests
-function tests = test_forbarVsIdx(testCase)
+function tests = test_forVsIdx(testCase)
 	tests = functiontests(localfunctions);
 
 end
 
 %% Test Functions
 
-function test_numFigs(testCase)
-	global param;
-	actual		= param.nfig;
-	expected	= 4;
-
-    assertEqual(testCase, actual, expected, 'Incorrect number of figures active\nConsider using the command "close all" to clear irrelevant active figures');
-end
-
 %% Check for one subplot
 function test_numAxesF3(testCase)
-	global param;
+	param 					= testCase.TestData.param;
 	
-	actual		= param.fig(3).nsubplot;
-	expected	= 1;
+	actual					= param.fig(3).nsubplot;
+	expected				= 1;
 
-    assertEqual(testCase, actual, expected, 'Expecting only one subplot in figure 3');
+    assertEqual(testCase, actual, expected, 'Expecting one subplot in figure 3');
 end
 
 function test_numAxesF4(testCase)
-	global param;
+	param 					= testCase.TestData.param;
 	
-	actual		= param.fig(4).nsubplot;
-	expected	= 1;
+	actual					= param.fig(4).nsubplot;
+	expected				= 1;
 
-    assertEqual(testCase, actual, expected, 'Expecting only one subplot in figure 4');
+    assertEqual(testCase, actual, expected, 'Expecting one subplot in figure 4');
 end
 
 
 function test_F3_naming(testCase)
-	global param;
+	param 					= testCase.TestData.param;
+
+	assumesPassed(testCase, @test_numAxesF3);
+
+
 	f3						= param.fig(3);
 	
 	axes					= f3.axes(1);
@@ -60,7 +56,11 @@ function test_F3_naming(testCase)
 end
 
 function test_F4_naming(testCase)
-	global param;
+	param 					= testCase.TestData.param;
+
+	assumesPassed(testCase, @test_numAxesF4);
+	
+
 	f4						= param.fig(4);
 	
 	axes					= f4.axes(1);
@@ -85,7 +85,10 @@ function test_F4_naming(testCase)
 end
 
 function test_F3_bar(testCase)
-	global param;
+
+	assumesPassed(testCase, @test_numAxesF4);
+	
+	param 					= testCase.TestData.param;
 	f3						= param.fig(3);
 	f3ah					= f3.axes(1).handle;
 	h_plot					= get(f3ah,'Children');
@@ -97,7 +100,10 @@ function test_F3_bar(testCase)
 end
 
 function test_F4_bar(testCase)
-	global param;
+
+	assumesPassed(testCase, @test_numAxesF4);
+	
+	param 					= testCase.TestData.param;
 	f4						= param.fig(4);
 	f4ah					= f4.axes(1).handle;
 	h_plot					= get(f4ah,'Children');
@@ -106,10 +112,15 @@ function test_F4_bar(testCase)
 	expected				= 'bar';
 	isbar					= strcmpi(actual, expected);
 	assertTrue(testCase, isbar, 'Expecting a bar plot in figure 4');
+		
 end
 
 function test_F3_equal_F4_bar(testCase)
-	global param;
+
+
+	assumesPassed(testCase, @test_F3_bar, @test_F4_bar);
+	
+	param 					= testCase.TestData.param;
 	f3						= param.fig(3);
 	f3ah					= f3.axes(1).handle;
 	h3_plot					= get(f3ah,'Children');
@@ -126,43 +137,21 @@ function test_F3_equal_F4_bar(testCase)
 	assertEqual(testCase, actual, expected, 'Expecting data in figure 3 and figure 4 to be consistent');
 end
 
-% function test_F3_equal_F4_data(testCase)
-% 	global param;
-% 	f3						= param.fig(3);
-% 	f4						= param.fig(4);
-	
-% 	f3a						= f3.axes(1);
-% 	f4a						= f4.axes(1);
-	
-% 	actual_label			= axes.title;
-% 	exp_label.string		= "1D bar";
-% 	exp_label.interpreter	= "latex";
-% 	exp_label.fontsize		= 25;
-% 	checkFields(testCase, '[figure 4] at title', actual_label, exp_label);
-	
-% 	actual_label			= axes.xlabel;
-% 	exp_label.string		= "u - [pixels]";
-% 	exp_label.interpreter	= "latex";
-% 	exp_label.fontsize		= 18;
-% 	checkFields(testCase, '[figure 4] at xlabel', actual_label, exp_label);
-	
-% 	actual_label			= axes.ylabel;
-% 	exp_label.string		= "bar Intensity";
-% 	exp_label.interpreter	= "latex";
-% 	exp_label.fontsize		= 18;
-% 	checkFields(testCase, '[figure 4] at ylabel', actual_label, exp_label);
-% end
-
 
 function teardownOnce(testCase)  % do not change function name
-    clearvars -global param map2D
+    
     
 end
 
 function setupOnce(testCase)
-	global param
-	% Figure 3
-	param	= getAllFigureProperties();
+	testCase.TestData.param	= getAllFigureProperties();
+	param		= testCase.TestData.param;
+	
+	actual		= param.nfig;
+	expected	= 4;
+
+    assertEqual(testCase, actual, expected, 'All tests failed. Expected 4 active figures. \nConsider using the command "close all" to clear irrelevant active figures');
+
 end
 
 %% Optional fresh fixtures  

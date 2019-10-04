@@ -11,6 +11,9 @@ function [param] = getAllFigureProperties()
 		allAxesInFigure = flip(findall(fh,'type','axes'));
 		naxs			= length(allAxesInFigure);
 		
+		param.fig(i).name			= get(fh, 'name');
+		param.fig(i).nsubplot		= naxs;
+		
 		for j  = 1:naxs
 			ca							= allAxesInFigure(j);
 
@@ -18,8 +21,7 @@ function [param] = getAllFigureProperties()
 			xlabel_field				= get(ca,'xlabel');
 			ylabel_field				= get(ca,'ylabel');
 			
-			param.fig(i).name			= get(fh, 'name');
-			param.fig(i).nsubplot		= naxs;
+			
 			
 			param.fig(i).axes(j).handle = ca;
 			param.fig(i).axes(j).title	= getFieldParams(title_field);

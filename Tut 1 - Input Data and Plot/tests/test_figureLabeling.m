@@ -6,25 +6,20 @@ end
 
 %% Test Functions
 
-function test_numFigs(testCase)
-	global param;
-	actual		= param.nfig;
-	expected	= 1;
-
-    assertEqual(testCase, actual, expected, 'Incorrect number of figures active\nExpecting only one figure open!\nConsider using the command "close all" to clear irrelevant active figures');
-end
-
 function test_numAxesF1(testCase)
-	global param;
-	actual		= param.fig(1).nsubplot;
-	expected	= 2;
+	param 					= testCase.TestData.param;
+	actual					= param.fig(1).nsubplot;
+	expected				= 2;
 
     assertEqual(testCase, actual, expected, 'Incorrect number of subplots');
 end
 
 function test_F1A1_naming(testCase)
-	global param;
-	f1			= param.fig(1);
+	param 					= testCase.TestData.param;
+
+	assumesPassed(testCase, @test_numAxesF1);
+
+	f1						= param.fig(1);
 	
 	axes					= f1.axes(1);
 	
@@ -48,7 +43,10 @@ function test_F1A1_naming(testCase)
 end
 
 function test_F1A2_naming(testCase)
-	global param;
+
+	assumesPassed(testCase, @test_numAxesF1);
+
+	param 					= testCase.TestData.param;
 	f1			= param.fig(1);
 	
 	axes		= f1.axes(2);
@@ -72,14 +70,18 @@ function test_F1A2_naming(testCase)
 end
 
 function teardownOnce(testCase)  % do not change function name
-    clearvars -global param map2D
     
 end
 
 function setupOnce(testCase)
-	global param
-	% Figure 1
-	param	= getAllFigureProperties();
+	testCase.TestData.param	= getAllFigureProperties();
+	param		= testCase.TestData.param;
+	
+	actual		= param.nfig;
+	expected	= 1;
+
+    assertEqual(testCase, actual, expected, 'All tests failed. Expected 1 active figures. \nConsider using the command "close all" to clear irrelevant active figures');
+
 end
 
 %% Optional fresh fixtures  
@@ -97,9 +99,9 @@ function checkFields(testCase, name, actual_label, expected_label)
 % 	assertEqual(testCase, actual, expected, sprintf('Failed on %s string', name));
 	aestr(actual, expected, name + " string");
 
-	actual		= actual_label.interpreter;
-	expected	= expected_label.interpreter;
-	aestr(actual, expected, name + " interpreter");%assertEqual(testCase, actual, expected, sprintf('Failed on %s interpreter', name));
+% 	actual		= actual_label.interpreter;
+% 	expected	= expected_label.interpreter;
+% 	aestr(actual, expected, name + " interpreter");%assertEqual(testCase, actual, expected, sprintf('Failed on %s interpreter', name));
 
 	actual		= string(actual_label.fontsize);
 	expected	= string(expected_label.fontsize);

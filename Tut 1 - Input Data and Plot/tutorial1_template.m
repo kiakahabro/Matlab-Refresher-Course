@@ -12,7 +12,9 @@ clear
 
 %% Display image
 % TODO: Create figure
+
 % TODO: Plot color image and add appropriate labels and titles
+
 % TODO: Plot greyscale image and add appropriate labels and titles
 
 %% Save image

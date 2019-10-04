@@ -1,12 +1,25 @@
 function testPrint(testResults)
 
-	fail_idx	= find([testResults.Failed]);
-	nfailed		= length(fail_idx);
 	ntests		= length(testResults);
-	npassed		= length(testResults) - nfailed;
+	idx			= 1:ntests;
+	
+	fail_log	= [testResults.Failed];
+	incomp_log	= [testResults.Incomplete] & ~fail_log;
+	pass_log	= [testResults.Passed];
+	
+	fail_idx	= find([testResults.Failed]);
+	incomp_idx	= find([testResults.Incomplete] & ~[testResults.Failed]);
+	pass_idx	= find([testResults.Passed]);
+	
+	
+	
+	nfailed		= length(fail_idx);
+	
+	npassed		= sum(pass_log);
 	
 	tick		= @()cprintf('green'," %c ", char(hex2dec('2713')));
 	cross		= @()cprintf('red', " %c ", char(hex2dec('2717')));
+	question	= @()cprintf('*orange', ' ? ');
 	
 	
 	
@@ -18,38 +31,29 @@ function testPrint(testResults)
 	
 	for j = 1:ntests
 		testname	= testResults(j).Name;
-		failed		= testResults(j).Failed == 1;
-		if(~failed)
+		passed		= pass_log(j);
+		incomplete	= incomp_log(j);
+		failed		= fail_log(j);
+		if(passed)
 			tick();
 			cprintf('black','%s\n', testname);
-		
-		else
+		elseif(incomplete)
+			question();
+			cprintf('black','%s\n', testname);
+			cprintf('black','\t%s\n', "Test ignored. Depends on:");
+			
+			outString	= testHelpString(testResults(j));
+			
+			outStrs		= strsplit(outString, "\\n");
+			noutstrs	= length(outStrs);
+			for ii = 1:(noutstrs-1)
+				cprintf('black','\t%s passing\n', outStrs(ii));
+			end
+		elseif(failed)
 			cross();
 			cprintf('black','%s\n', testname);
 			
-			outString	= "";
-			string1		= testResults(j).Details.DiagnosticRecord.Event;
-			if strcmpi(string1,'VerificationFailed')
-				for ii = 1:length(testResults(j).Details.DiagnosticRecord)
-					outString = outString + string(testResults(j).Details.DiagnosticRecord(ii).TestDiagnosticResults.DiagnosticText) + "\n";
-				end
-			elseif strcmpi(string1,'ExceptionThrown')
-				if contains(testResults(j).Details.DiagnosticRecord.Exception.message,"href")
-					%                        error("contains a href")
-					msg = regexprep(string(testResults(j).Details.DiagnosticRecord.Exception.message),["Error:(.+)File:",".</a>"],["Error in file","\r\n"]);
-					outString = outString+ msg + "\n";
-
-				else
-					outString = outString + string(testResults(j).Details.DiagnosticRecord.Exception.message) + "\n";
-				end
-			elseif strcmpi(string1,'AssertionFailed')
-				for ii = 1:length(testResults(j).Details.DiagnosticRecord)
-					outString = outString + string(testResults(j).Details.DiagnosticRecord(ii).TestDiagnosticResults.DiagnosticText) + "\n";
-				end
-			else
-				disp(string1)
-				error('test failure mode not yet encountered')
-			end
+			outString	= testHelpString(testResults(j));
 			
 			outStrs		= strsplit(outString, "\\n");
 			noutstrs	= length(outStrs);

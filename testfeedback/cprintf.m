@@ -330,7 +330,7 @@ function [underlineFlag,boldFlag,style,debugFlag] = processStyleInfo(style)
       % Try case-insensitive partial/full match with the accepted style names
       matlabStyles = {'Text','Keywords','Comments','Strings','UnterminatedStrings','SystemCommands','Errors'};
       validStyles  = [matlabStyles, ...
-                      'Black','Cyan','Magenta','Blue','Green','Red','Yellow','White', ...
+                      'Black','Cyan','Magenta','Blue','Green','Red','Yellow','White','Orange' ...
                       'Hyperlinks'];
       matches = find(strncmpi(style,validStyles,length(style)));
 
@@ -352,7 +352,7 @@ function [underlineFlag,boldFlag,style,debugFlag] = processStyleInfo(style)
 
       % Color name
       elseif matches < length(validStyles)
-          colors = [0,0,0; 0,1,1; 1,0,1; 0,0,1; 0,1,0; 1,0,0; 1,1,0; 1,1,1];
+          colors = [0,0,0; 0,1,1; 1,0,1; 0,0,1; 0,1,0; 1,0,0; 1,1,0; 1,1,1;1,0.5,0];
           requestedColor = colors(matches-length(matlabStyles),:);
           style = getColorStyle(requestedColor);
 
