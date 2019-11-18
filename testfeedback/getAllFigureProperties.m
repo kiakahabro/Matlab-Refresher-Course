@@ -1,19 +1,22 @@
 function [param] = getAllFigureProperties()
 %GETALLFIGUREPROPERTIES Summary of this function goes here
 %   Detailed explanation goes here
+    drawnow;
 	figHandles	= get(groot, 'Children');
 	nfigures	= length(figHandles);
 	
 	param.nfig	= nfigures;
 	for i = 1 : nfigures
-		fh_idx			= nfigures - (i - 1);
+		fh_idx			= i;%nfigures - (i - 1);
 		fh				= figHandles(fh_idx);
 		allAxesInFigure = flip(findall(fh,'type','axes'));
 		naxs			= length(allAxesInFigure);
 		
-		param.fig(i).name			= get(fh, 'name');
-		param.fig(i).nsubplot		= naxs;
-		
+        fnum            = fh.Number;
+		param.fig(fnum).name			= get(fh, 'name');
+		param.fig(fnum).nsubplot		= naxs;
+		param.fig(fnum).axes            = [];
+        param.fig(fnum).axes.handle     = [];
 		for j  = 1:naxs
 			ca							= allAxesInFigure(j);
 
@@ -23,10 +26,10 @@ function [param] = getAllFigureProperties()
 			
 			
 			
-			param.fig(i).axes(j).handle = ca;
-			param.fig(i).axes(j).title	= getFieldParams(title_field);
-			param.fig(i).axes(j).xlabel = getFieldParams(xlabel_field);
-			param.fig(i).axes(j).ylabel = getFieldParams(ylabel_field);
+			param.fig(fnum).axes(j).handle = ca;
+			param.fig(fnum).axes(j).title	= getFieldParams(title_field);
+			param.fig(fnum).axes(j).xlabel = getFieldParams(xlabel_field);
+			param.fig(fnum).axes(j).ylabel = getFieldParams(ylabel_field);
 			
 		end
 	end

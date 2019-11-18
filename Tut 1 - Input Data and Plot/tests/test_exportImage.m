@@ -14,7 +14,7 @@ function test_twoImages(testCase)
 	expected	= 2;
 	actual		= nimages;
 
-    assertEqual(testCase, actual, expected, 'Expecting two images in directory "data_out"');
+    assertEqual(testCase, actual, expected, 'Expecting two images in directory "Figures"');
 end
 
 

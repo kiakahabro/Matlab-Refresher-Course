@@ -1,23 +1,12 @@
-function runAllTests(paths)
+function runAllTests()
 
-	FileList    = dir(fullfile('tests',['*','.m']));
-	
-	nfiles      = length(FileList);
-
-	for i = 1:nfiles
-		filedir		= string(FileList(i).folder);
-		filename 	= string(FileList(i).name);
-		fullname	= filedir + filesep + filename;
-		
-		if(i == 1)
-			cprintf('*black',' Running %s\n ', filename);
-		else
-			cprintf('*black','\n\n Running %s\n ', filename);
-		end
-		
-		testResults = runtests(fullname, 'OutputDetail', 0);
-		testPrint(testResults);
-	end
+    if(exist('tests','dir')==7)
+        [~, testResults] = evalc('runtests(''tests'')');
+%         testResults     = runtests('tests');
+        testPrint(testResults);
+    else
+        cprintf('*orange','No directory called \"tests\"\n');
+    end
 
 
 end

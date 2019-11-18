@@ -1,6 +1,10 @@
 function testPrint(testResults)
 
 	ntests		= length(testResults);
+    
+    
+    
+    
 	idx			= 1:ntests;
 	
 	fail_log	= [testResults.Failed];
@@ -25,7 +29,9 @@ function testPrint(testResults)
 	
 	if(nfailed~=0)
 		cprintf('*red','%d/%d tests passed\n', npassed, ntests);
-	else
+    elseif(ntests==0)
+        cprintf('*orange','No tests found!\n');
+    else
 		cprintf('*green','All tests passed!\n');
 	end
 	
@@ -56,13 +62,17 @@ function testPrint(testResults)
 			outString	= testHelpString(testResults(j));
 			
 			outStrs		= strsplit(outString, "\\n");
-			noutstrs	= length(outStrs);
 			
-			cprintf('red','   %s\n', outStrs(1));
-			for ii = 2:(noutstrs-1)
-				cprintf('black','\t%s\n', outStrs(ii));
-			end
-			
+			ise         = strlength(outStrs) == 0;
+            outStrs(ise)=[];
+            
+            noutstrs	= length(outStrs);
+            if(noutstrs>0);
+                cprintf('red','   %s\n', outStrs(1));
+                for ii = 2:(noutstrs-1)
+                    cprintf('black','\t%s\n', outStrs(ii));
+                end
+            end
 		end
 		
 		if(nfailed~=0)
