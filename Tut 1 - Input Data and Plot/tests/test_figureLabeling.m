@@ -1,7 +1,6 @@
 %% Main function to generate tests
 function tests = test_figureLabeling(testCase)
 	tests = functiontests(localfunctions);
-
 end
 
 %% Test Functions
@@ -10,7 +9,7 @@ function test_numAxesF1(testCase)
 	param 					= testCase.TestData.param;
 	actual					= param.fig(1).nsubplot;
 	expected				= 2;
-
+    
     assertEqual(testCase, actual, expected, 'Incorrect number of subplots');
 end
 
