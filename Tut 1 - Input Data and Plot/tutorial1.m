@@ -24,6 +24,6 @@ clear
 % TODO: Save figure as png image
 
 %% Run tests on output
-addpath ../../testfeedback
+addpath ../testfeedback
 runAllTests();
 restoredefaultpath

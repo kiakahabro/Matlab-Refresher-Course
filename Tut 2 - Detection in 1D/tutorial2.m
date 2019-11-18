@@ -65,6 +65,6 @@ savedirpath = [savedir, filesep];
 
 
 %% Run tests on output
-addpath ../../testfeedback
+addpath ../testfeedback
 runAllTests();
 restoredefaultpath

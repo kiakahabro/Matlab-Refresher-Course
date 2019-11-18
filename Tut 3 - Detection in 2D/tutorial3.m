@@ -41,6 +41,6 @@ hold on;
 
 
 %% Run tests on output
-addpath ../../testfeedback
+addpath ../testfeedback
 runAllTests();
 restoredefaultpath
