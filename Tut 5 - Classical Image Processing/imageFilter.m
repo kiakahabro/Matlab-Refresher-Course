@@ -5,6 +5,9 @@ function g = imageFilter(f,T)
 % - f is the input image.
 % - T is the convolutional kernel.
 
+%% Convert f to a double
+%HINT: Use "double".
+
 %% Initialise output
 %HINT:  Ensure it is a double.
 g = zeros(size(f));
@@ -16,6 +19,8 @@ g = zeros(size(f));
 
 %% Create padded image
 %HINT: Use "padarray" to pad the image f with a border of zeros.
+
+%% Create variables which hold the relative indicies
 
 %% Perform convolution
 %HINT: Use a double for loop.
