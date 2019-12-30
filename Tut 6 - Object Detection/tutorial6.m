@@ -37,13 +37,14 @@ title('Find Ball');
 xlabel('u - [pixels]');
 ylabel('v - [pixels]');
 hold on
+axis on
 template_ax = subplot(1,2,2);
 imshow(uint8(255-template), 'InitialMagnification', 'fit');
 title('Template');
 xlabel('u - [pixels]');
 ylabel('v - [pixels]');
 %% Object recognition
-% TODO: Call image filter.
+%TODO: Call image filter.
 
 %TODO: Find the pixel with the highest score.
 
@@ -64,7 +65,7 @@ daspect([1,1,10000])
 colorbar
 set(gca,'ydir','reverse'); %This is because for images the origin is in the top left and for everything else it is in the bottom left
 
-%%
+%% Run Tests
 addpath ../testfeedback
 runAllTests
 restoredefaultpath
