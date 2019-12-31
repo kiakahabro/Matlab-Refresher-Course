@@ -64,7 +64,7 @@ ylabel('v - [pixels]');
 axis on
 hold on;
 %% Object Recognition
-threshold	= 0.8;
+threshold	= 0.8; %Must be 0.8 for tests to pass!
 %TODO: Call image filter with the noisy image, template and zncc metric
 
 %TODO: Find all elements above threshold.
