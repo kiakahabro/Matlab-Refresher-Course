@@ -8,7 +8,7 @@ end
 
 function test_twoImages(testCase)
 	
-	imagepaths	= dir('../*/*.png');
+	imagepaths	= dir('./*.png');
 	nimages		= length(imagepaths);
 	
 	expected	= 2;
