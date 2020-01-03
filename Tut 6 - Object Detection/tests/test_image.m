@@ -31,7 +31,7 @@ assertEqual(testCase, expected, actual,'Expected only one axis in figure 2.');
 
 end
 
-function test_plotContents(testCase)
+function test_f1PlotContents(testCase)
 assumesPassed(testCase, @test_f1_axes_has_graphics);
 
 param                   = testCase.TestData.param;
@@ -42,23 +42,23 @@ ga                      = get(ah,'children');
 
 nga                     = length(ga);
 types                   = get(ga,'type');
-stypes                  = string;
-for i = 1:nga
-    stypes(i)               = types{i};
-end
 %% Line
-isline                  = stypes == "line";
+isline                  = strcmpi(types,'line');
 
-isplot					= sum(isline)==1;
-verifyTrue(testCase, isplot,'Expecting 1 circle in Figure 1, subplot 1');
+actual = sum(isline);
+expected = 1;
+verifyEqual(testCase, actual,expected,...
+    'Expecting 1 circle in Figure 1, subplot 1');
 %% Image
-isimage                  = stypes == "image";
+isimage                  = strcmpi(types,'image');
 
-isplot					= sum(isimage)==1;
-verifyTrue(testCase, isplot,'Expecting 1 image in Figure 1, subplot 1');
+actual = sum(isimage);
+expected = 1;
+verifyEqual(testCase, actual,expected,...
+    'Expecting 1 image in Figure 1, subplot 1');
 end
 
-function test_f2_type(testCase)
+function test_f2plotContents(testCase)
 assumesPassed(testCase, @test_f2_axes_has_graphics);
 
 param                   = testCase.TestData.param;
@@ -77,7 +77,7 @@ end
 
 function test_circleCentredCorrect(testCase)
 
-assumesPassed(testCase, @test_f2_type, @test_f1_axes_has_graphics);
+assumesPassed(testCase, @test_f2plotContents, @test_f1_axes_has_graphics);
 
 param                   = testCase.TestData.param;
 f1						= param.fig(1);
@@ -86,11 +86,8 @@ ga                      = get(ah,'children');
 
 nga                     = length(ga);
 types                   = get(ga,'type');
-stypes                  = string;
-for i = 1:nga
-    stypes(i)               = types{i};
-end
-isline                  = strcmpi(stypes,'line');
+
+isline                  = strcmpi(types,'line');
 gaCircle                = ga(isline);
 %%
 f2						= param.fig(2);
@@ -120,7 +117,7 @@ param		= testCase.TestData.param;
 actual		= param.nfig;
 expected	= 2;
 
-assertEqual(testCase, actual, expected, 'All tests failed. Expected 2 active figures. \nConsider using the command "close all" to clear irrelevant active figures');
+assertEqual(testCase, actual, expected, 'All tests failed. Expected 2 active figures. \nConsider using the command ''close all'' to clear irrelevant active figures');
 
 end
 
