@@ -1,5 +1,5 @@
 %% Main function to generate tests
-function tests = test_image(testCase)
+function tests = test_FigureTut3(testCase)
 	tests = functiontests(localfunctions);
 
 end
