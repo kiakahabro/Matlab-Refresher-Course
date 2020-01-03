@@ -1,5 +1,5 @@
 %% Main function to generate tests
-function tests = test_image(testCase)
+function tests = test_FiguresTut7(testCase)
 tests = functiontests(localfunctions);
 
 end
@@ -59,10 +59,10 @@ ctypes                   = get(ga,'type');
 
 
 %% Line
-isline                  = strcmpi(ctypes,'line');
-actual = sum(isline);
-floor = 1;
-verifyGreaterThan(testCase,actual,floor,...
+isline  = strcmpi(ctypes,'line');
+actual  = sum(isline);
+floorVal   = 1;
+verifyGreaterThan(testCase,actual,floorVal,...
     'Expected multiple circles in subplot 2.')
 %% Image
 isimage     = strcmpi(ctypes, 'image');
@@ -82,7 +82,7 @@ ah                      = f2.axes.handle;
 ga                      = get(ah,'children');
 type = get(ga,'type');
 
-actual = type;
+actual   = type;
 expected = 'contour';
 
 verifyMatches(testCase,actual,expected,...
@@ -168,50 +168,16 @@ ga                      = get(ah,'children');
 score = ga.ZData;
 
 for i =1:length(Circle)
-u = centre(i,1);
-v = centre(i,2);
-
-actual = score(v,u);
-floor = 0.8;
-msg = sprintf('The circle centred at [u,v] = [%d,%d] does not correspond to a score greather than 0.8 in the input image.',u,v);
-verifyGreaterThan(testCase, actual,floor, ...
-    msg)
+    u = centre(i,1);
+    v = centre(i,2);
+    
+    actual = score(v,u);
+    floorVal = 0.8;
+    msg = sprintf('The circle centred at [u,v] = [%d,%d] does not correspond to a score greather than 0.8 in the input image.',u,v);
+    verifyGreaterThan(testCase, actual,floorVal, ...
+        msg)
 end
 
-
-
-centreScores = score(u,v);
-
-% assertFail(testCase,'unconditional fail')
-% assumesPassed(testCase, @test_figure2axes);
-% 
-% param                   = testCase.TestData.param;
-% f1						= param.fig(1);
-% ah                      = f1.axes(1).handle;
-% ga                      = get(ah,'children');
-% 
-% nga                     = length(ga);
-% types                   = get(ga,'type');
-% stypes                  = string;
-% for i = 1:nga
-%     stypes(i)               = types{i};
-% end
-% isline                  = strcmpi(stypes,'line');
-% gaCircle                = ga(isline);
-% %%
-% f2						= param.fig(2);
-% ah                      = f2.axes(1).handle;
-% ga                      = get(ah,'children');
-% 
-% score = ga.ZData;
-% 
-% xc = round(mean(gaCircle.XData));
-% yc = round(mean(gaCircle.YData));
-% 
-% expected = 1;
-% actual = score(yc,xc);
-% verifyEqual(testCase,actual,expected,'abstol',1e-5,...
-%     'Expected the score ploted in figure 2 to equal 1 at the pixel the circle is centred around in figure 1.');
 end
 
 function teardownOnce(testCase)  % do not change function name
@@ -226,7 +192,7 @@ param		= testCase.TestData.param;
 actual		= param.nfig;
 expected	= 2;
 
-assertEqual(testCase, actual, expected, 'All tests failed. Expected 2 active figures. \nConsider using the command "close all" to clear irrelevant active figures');
+assertEqual(testCase, actual, expected, 'All tests failed. Expected 2 active figures. \nConsider using the command ''close all'' to clear irrelevant active figures');
 
 end
 
