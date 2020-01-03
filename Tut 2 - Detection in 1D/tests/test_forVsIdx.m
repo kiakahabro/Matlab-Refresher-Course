@@ -37,20 +37,20 @@ function test_F3_naming(testCase)
 	axes					= f3.axes(1);
 	
 	actual_label			= axes.title;
-	exp_label.string		= "Find with for loop";
-	exp_label.interpreter	= "latex";
+	exp_label.string		= 'Find with for loop';
+	exp_label.interpreter	= 'latex';
 	exp_label.fontsize		= 25;
 	checkFields(testCase, '[figure 3] at title', actual_label, exp_label);
 	
 	actual_label			= axes.xlabel;
-	exp_label.string		= "u - [pixels]";
-	exp_label.interpreter	= "latex";
+	exp_label.string		= 'u - [pixels]';
+	exp_label.interpreter	= 'latex';
 	exp_label.fontsize		= 18;
 	checkFields(testCase, '[figure 3] at xlabel', actual_label, exp_label);
 	
 	actual_label			= axes.ylabel;
-	exp_label.string		= "Pixel occupation";
-	exp_label.interpreter	= "latex";
+	exp_label.string		= 'Pixel occupation';
+	exp_label.interpreter	= 'latex';
 	exp_label.fontsize		= 18;
 	checkFields(testCase, '[figure 3] at ylabel', actual_label, exp_label);
 end
@@ -72,8 +72,8 @@ function test_F4_naming(testCase)
 	checkFields(testCase, '[figure 4] at title', actual_label, exp_label);
 	
 	actual_label			= axes.xlabel;
-	exp_label.string		= "u - [pixels]";
-	exp_label.interpreter	= "latex";
+	exp_label.string		= 'u - [pixels]';
+	exp_label.interpreter	= 'latex';
 	exp_label.fontsize		= 18;
 	checkFields(testCase, '[figure 4] at xlabel', actual_label, exp_label);
 	
@@ -150,7 +150,7 @@ function setupOnce(testCase)
 	actual		= param.nfig;
 	expected	= 4;
 
-    assertEqual(testCase, actual, expected, 'All tests failed. Expected 4 active figures. \nConsider using the command "close all" to clear irrelevant active figures');
+    assertEqual(testCase, actual, expected, 'All tests failed. Expected 4 active figures. \nConsider using the command ''close all'' to clear irrelevant active figures');
 
 end
 

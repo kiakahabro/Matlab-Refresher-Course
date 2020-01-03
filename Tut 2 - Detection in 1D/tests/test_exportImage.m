@@ -14,7 +14,7 @@ function test_fourImages(testCase)
 	expected	= 4;
 	actual		= nimages;
 
-    assertEqual(testCase, actual, expected, 'Expecting four images in directory "data_out"');
+    assertEqual(testCase, actual, expected, 'Expecting four images in directory ''Figures''');
 end
 
 

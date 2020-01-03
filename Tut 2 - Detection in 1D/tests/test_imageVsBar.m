@@ -146,7 +146,7 @@ function setupOnce(testCase)
 	actual		= param.nfig;
 	expected	= 4;
 
-    assertEqual(testCase, actual, expected, 'All tests failed. Expected 4 active figures. \nConsider using the command "close all" to clear irrelevant active figures');
+    assertEqual(testCase, actual, expected, 'All tests failed. Expected 4 active figures. \nConsider using the command ''close all'' to clear irrelevant active figures');
 
 end
 
