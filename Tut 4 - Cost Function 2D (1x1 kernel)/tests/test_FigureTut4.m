@@ -1,5 +1,5 @@
 %% Main function to generate tests
-function tests = test_image(testCase)
+function tests = test_FigureTut4(testCase)
 	tests = functiontests(localfunctions);
 
 end
@@ -186,7 +186,7 @@ function setupOnce(testCase)
 	actual		= param.nfig;
 	expected	= 2;
 
-    assertEqual(testCase, actual, expected, 'All tests failed. Expected 2 active figures. \nConsider using the command "close all" to clear irrelevant active figures');
+    assertEqual(testCase, actual, expected, 'All tests failed. Expected 2 active figures. \nConsider using the command ''close all'' to clear irrelevant active figures');
 
 end
 
