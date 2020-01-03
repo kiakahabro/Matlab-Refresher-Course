@@ -98,6 +98,19 @@ verifyEqual(testCase, actual, expected,'absTol',1e-5,...
     'Expected output to be consistent with Matlab convolution.')
 end
 
+function test_inputType(testCase)
+    I = testCase.TestData.f;
+    K = uint8(randi(10,5,5));
+    
+    me = [];
+    try 
+        actual = imageFilter(I,K);
+    catch me
+        msg = sprintf('imageFilter threw an error due to the input types. Be sure to convert both the input image and the template to doubles.\n %s',me.message);
+        verifyFail(testCase,msg)
+    end
+end
+
 function teardownOnce(testCase)  % do not change function name
 rmpath ../
 rng('shuffle');
