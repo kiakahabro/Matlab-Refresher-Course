@@ -8,8 +8,9 @@ function g = imageFilter(f,T,metric)
 %    g = imageFilter(..., metric) performs a template matching operation
 %    using the function handle metric as a similarity measure.
 
-%% Convert f to a double
+%% Convert f and T to a double
 f = double(f);
+T = double(T);
 %% Initialise output
 g = zeros(size(f));
 %% TODO: Copy the completed imageFilter from Tutorial 5.

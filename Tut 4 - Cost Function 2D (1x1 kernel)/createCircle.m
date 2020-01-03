@@ -5,7 +5,7 @@ function [x, y] = createCircle(xc, yc, r)
 
 %% TODO: copy your completed createCircle here from the last tutorial.
 
-	x = [];
-    y = [];
+x = [];
+y = [];
 end
 
