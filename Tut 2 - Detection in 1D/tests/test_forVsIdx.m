@@ -66,8 +66,8 @@ function test_F4_naming(testCase)
 	axes					= f4.axes(1);
 	
 	actual_label			= axes.title;
-	exp_label.string		= "Find with indexing";
-	exp_label.interpreter	= "latex";
+	exp_label.string		= 'Find with indexing';
+	exp_label.interpreter	= 'latex';
 	exp_label.fontsize		= 25;
 	checkFields(testCase, '[figure 4] at title', actual_label, exp_label);
 	
@@ -78,8 +78,8 @@ function test_F4_naming(testCase)
 	checkFields(testCase, '[figure 4] at xlabel', actual_label, exp_label);
 	
 	actual_label			= axes.ylabel;
-	exp_label.string		= "Pixel occupation";
-	exp_label.interpreter	= "latex";
+	exp_label.string		= 'Pixel occupation';
+	exp_label.interpreter	= 'latex';
 	exp_label.fontsize		= 18;
 	checkFields(testCase, '[figure 4] at ylabel', actual_label, exp_label);
 end
@@ -165,15 +165,8 @@ function checkFields(testCase, name, actual_label, expected_label)
 	actual		= actual_label.string;
 	expected	= expected_label.string;
 	
-	aestr = @(a,e,name)(assertTrue(testCase, strcmpi(a, e), "Failed on " + name + ".\nExpected: """ + e + """ | Actual: """ + a + """ "));
+	aestr = @(a,e,name)(assertTrue(testCase, strcmpi(a, e), ['Failed on ', name, '.\nExpected: "', e, '" | Actual: "', a ,'" ']));
 % 	assertEqual(testCase, actual, expected, sprintf('Failed on %s string', name));
-	aestr(actual, expected, name + " string");
+	aestr(actual, expected, [name, ' string']);
 
-	% actual		= actual_label.interpreter;
-	% expected	= expected_label.interpreter;
-	% aestr(actual, expected, name + " interpreter");%assertEqual(testCase, actual, expected, sprintf('Failed on %s interpreter', name));
-
-	% actual		= string(actual_label.fontsize);
-	% expected	= string(expected_label.fontsize);
-	% aestr(actual, expected, name + " fontsize");%assertEqual(testCase, actual, expected, sprintf('Failed on %s fontsize', name));
 end

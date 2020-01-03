@@ -43,8 +43,8 @@ function test_plot_has_image(testCase)
 	ga                      = get(ah,'children');
     
     
-    types                   = {get(ga,'type')};
-	isimage                 = types == "image";
+    types                   = get(ga,'type');
+	isimage                 = strcmpi(types,'image');
     nimage                  = sum(isimage);
     
 	actual					= nimage;
@@ -57,12 +57,8 @@ function test_plot_has_image(testCase)
     
     nga                     = length(ga);
     types                   = get(ga,'type');
-    stypes                  = string;
-    for i = 1:nga
-        stypes(i)               = types{i};
-    end
 	
-	isimage                 = stypes == "image";
+	isimage                 = strcmpi(types,'image');
     nimage                  = sum(isimage);
     
 	actual					= nimage;
@@ -81,13 +77,9 @@ function test_plot_has_circles(testCase)
     ga                      = get(ah,'children');
     
 	nga                     = length(ga);
-    types                   = {get(ga,'type')};
-    stypes                  = string;
-    for i = 1:nga
-        stypes(i)               = types{i};
-    end
-	
-    isline                  = stypes == "line";
+    types                   = get(ga,'type');
+    
+    isline                  = strcmpi(types, 'line');
 	
 	isplot					= sum(isline)==0;
     assertTrue(testCase, isplot,'Expecting no circles or lines to be in figure 1');
@@ -99,12 +91,8 @@ function test_plot_has_circles(testCase)
     
 	nga                     = length(ga);
     types                   = get(ga,'type');
-    stypes                  = string;
-    for i = 1:nga
-        stypes(i)               = types{i};
-    end
 	
-    isline                  = stypes == "line";
+    isline                  = strcmpi(types, 'line');
     isplot					= sum(isline)>0;
 	assertTrue(testCase, isplot,'Expecting circles to be in figure 2');
 end
@@ -119,13 +107,9 @@ function test_costSorted(testCase)
     ga                      = get(ah,'children');
     
     types                   = get(ga,'type');
-    stypes                  = string;
-    for i = 1:length(types)
-        stypes(i)               = types{i};
-    end
 	
-    isline                  = stypes == "line";
-    isimage                 = stypes == "image";
+    isline                  = strcmpi(types, 'line');
+    isimage                 = strcmpi(types, 'image');
 	circs                   = ga(isline);
     
     costval                 = get(ga(isimage), 'cdata');
@@ -156,19 +140,14 @@ function test_circleCentredCorrect(testCase)
 	ah                      = f1.axes(1).handle;
 	ga                      = get(ah,'children');
     
-	
-    
     h_image                 =ga;
     
     f2						= param.fig(2);
 	ah                      = f2.axes(1).handle;
 	ga                      = get(ah,'children');
     types                   = get(ga,'type');
-    stypes                  = string;
-    for i = 1:length(types)
-        stypes(i)               = types{i};
-    end
-	isline                  = stypes == "line";
+    
+	isline                  = strcmpi(types, 'line');
     h_allplot               = ga(isline);
     h_plot                  = h_allplot(end); % first plot
     
@@ -199,6 +178,7 @@ function teardownOnce(testCase)  % do not change function name
 end
 
 function setupOnce(testCase)
+
     drawnow;
 	testCase.TestData.param	= getAllFigureProperties();
 	param		= testCase.TestData.param;
