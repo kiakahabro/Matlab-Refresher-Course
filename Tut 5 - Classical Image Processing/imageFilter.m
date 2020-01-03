@@ -5,7 +5,7 @@ function g = imageFilter(f,T)
 % - f is the input image.
 % - T is the convolutional kernel.
 
-%% Convert f to a double
+%% Convert f and T to a double
 %HINT: Use "double".
 
 %% Initialise output
